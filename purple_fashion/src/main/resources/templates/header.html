@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+
+</head>
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <a class="navbar-brand" th:href="@{/home}">
+        <strong><span>Purple</span> Fashion</strong>
+      </a>
+
+      <div class="d-lg-none">
+        <a th:href="@{/login}" sec:authorize="isAnonymous()" class="bi-person custom-icon me-3"></a>
+
+        <a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="bi-person custom-icon me-3"></a>
+
+        <a th:href="@{/productDetail}" sec:authorize="isAuthenticated()" class="bi-bag custom-icon"></a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" sec:authorize="isAnonymous()" th:classappend="${home} ? active : nav-link" th:href="@{/home}">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" sec:authorize="isAnonymous()" th:classappend="${about} ? active : nav-link" th:href="@{/about}">Story</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" sec:authorize="isAuthenticated()" th:classappend="${products} ? active : nav-link" th:href="@{/products}">Products</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" sec:authorize="isAnonymous()" th:classappend="${faq} ? active : nav-link" th:href="@{/faq/all(general='true', product='true')}">FAQs</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" sec:authorize="isAnonymous()" th:classappend="${isContact} ? active : nav-link" th:href="@{/contact}">Contact</a>
+          </li>
+        </ul>
+
+        <div class="d-none d-lg-block">
+          <a th:href="@{/login}" sec:authorize="isAnonymous()" class="bi-person custom-icon me-3"></a>
+
+          <a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="bi-person custom-icon me-3"></a>
+
+          <a th:href="@{/productDetail}" sec:authorize="isAuthenticated()" class="bi-bag custom-icon"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  </header>
+
+</body>
+</html>
