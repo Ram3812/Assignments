@@ -3,11 +3,11 @@ package com.purpletech.purplefashion.model;
 import lombok.Data;
 
 @Data
-public class Faq {
+public class Faq extends BaseEntity {
 
-    private final String question;
-    private final String answer;
-    private final Type type;
+    private String question;
+    private String answer;
+    private Type type;
 
     public enum Type {
         GENERAL, PRODUCT

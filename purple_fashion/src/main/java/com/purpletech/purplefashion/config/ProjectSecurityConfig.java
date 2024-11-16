@@ -1,5 +1,6 @@
 package com.purpletech.purplefashion.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,17 +15,22 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class ProjectSecurityConfig {
 
     @Bean
-    SecurityFilterChain defaultSecutityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf) -> csrf.disable())
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf((csrf) -> csrf
+                        .ignoringRequestMatchers("/saveMsg")
+                        .ignoringRequestMatchers(PathRequest.toH2Console()))
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/products").authenticated()
+                        .requestMatchers("/displayMessages/**").hasRole("ADMIN")
                         .requestMatchers("/","/home").permitAll()
                         .requestMatchers("/about").permitAll()
-                        .requestMatchers("/products").authenticated()
                         .requestMatchers("/faq/**").permitAll()
                         .requestMatchers("/contact").permitAll()
                         .requestMatchers("/saveMsg").permitAll()
                         .requestMatchers("/assets/**").permitAll()
-                        .requestMatchers("/login").permitAll())
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/logout").permitAll()
+                        .requestMatchers(PathRequest.toH2Console()).permitAll())
                 .formLogin((loginConfigurer) -> loginConfigurer
                         .loginPage("/login")
                         .defaultSuccessUrl("/products")
