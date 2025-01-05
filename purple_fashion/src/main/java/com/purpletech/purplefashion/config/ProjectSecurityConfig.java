@@ -39,6 +39,7 @@ public class ProjectSecurityConfig {
                         .logoutSuccessUrl("/login?logout=true")
                         .invalidateHttpSession(true).permitAll())
                 .httpBasic(withDefaults());
+        http.headers().frameOptions().disable();
         return http.build();
     }
 
